@@ -1,4 +1,4 @@
-from resources.excel_handler.read_data import read_input_files
+from resources.excel_handler.read_data import read_data
 
 
 class ResourceManager:
@@ -14,8 +14,8 @@ class ResourceManager:
         pass
 
     @staticmethod
-    def get_data(report_name: str, resource='xlsx') -> list:
+    def get_data(report_name: str, resource: str = 'xlsx') -> dict:
         if resource == 'xlsx':
-            return read_input_files(main_file=None, unshipped_file=None, options=None)
+            return read_data(main_file=report_name, unshipped_file=report_name)
         else:
-            raise ValueError('Неверный формат источника данных')
+            raise ValueError('Invalid data source format')
