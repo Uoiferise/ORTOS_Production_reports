@@ -1,4 +1,5 @@
 from resources.resource_manager import ResourceManager
+from services.reports.abutments.abutments_report import ReportAbutments
 
 
 def main():
@@ -7,6 +8,8 @@ def main():
 
     for key, value in data[test_name].get_info().items():
         print(f'{key}: {value}')
+
+    report = ReportAbutments(name=data, sheets=tuple())
 
 
 if __name__ == '__main__':

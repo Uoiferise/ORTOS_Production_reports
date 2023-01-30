@@ -9,13 +9,14 @@ class BasicReport(AbstractReport):
 
     __slots__ = ('_name', '_data', '_sheets', '_workbook')
 
-    def __init__(self, name: str, data: dict, sheets: tuple):
-        self._name = name
+    def __init__(self, data: dict, sheets: tuple):
         self._data = data
         self._sheets = sheets
 
         self._workbook = openpyxl.Workbook()
         self._workbook.remove(self._workbook.active)
+
+        self.create_styles()
 
     def create_styles(self):
         # Creating a header style
