@@ -1,4 +1,4 @@
-from services import BasicReport
+from services.basic_report.basic_report import BasicReport
 
 
 class ReportAbutments(BasicReport):

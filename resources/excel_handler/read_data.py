@@ -1,29 +1,23 @@
 import openpyxl
 from excel_options import COLUMN_INDEXES_INFO_DATA
-
-
-class Nomenclature:
-    def __init__(self, name: str, id_row: int, info: list):
-        self.name = name
-        self.id_row = id_row
-        self.info = info
+from services.basic_report.basic_nomenclature import Nomenclature
+from excel_handler.production_plan_handler import create_production_date
 
 
 def read_main_file(main_file: str) -> dict:
-    data = {
-        'main_dict': {},
-        'unshipped_dict': {},
-        'date_dict': {}
-    }
+    main_dict = dict()
 
     input_book = openpyxl.load_workbook(main_file)
     input_sheet = input_book.active
     for row in range(4, input_sheet.max_row + 1):
         nomenclature_name = input_sheet.cell(row=row, column=5).value
-        nomenclature_info = [input_sheet.cell(row=row, column=col).value for col in COLUMN_INDEXES_INFO_DATA]
-        data['main_dict'][nomenclature_name] = Nomenclature(name=nomenclature_name, id_row=row, info=nomenclature_info)
+        nomenclature_info = dict()
+        for index, col in enumerate(COLUMN_INDEXES_INFO_DATA):
+            nomenclature_info[index + 1] = input_sheet.cell(row=row, column=col).value
+        nomenclature_info[max(nomenclature_info.keys()) + 1] = create_production_date(input_sheet=input_sheet, row=row)
+        main_dict[nomenclature_name] = Nomenclature(name=nomenclature_name, id_row=row, info=nomenclature_info)
 
-    return data
+    return main_dict
 
 
 def read_unshipped_file(unshipped_file: str) -> dict:

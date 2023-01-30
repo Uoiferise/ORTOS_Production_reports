@@ -1,4 +1,5 @@
-from services import AbstractReport, BasicReportSheet
+from services.abstractions.abstract_report import AbstractReport
+from services.basic_report.basic_report_sheet import BasicReportSheet
 import openpyxl
 from openpyxl.styles import NamedStyle, Font, Border, Side, PatternFill, Alignment
 
