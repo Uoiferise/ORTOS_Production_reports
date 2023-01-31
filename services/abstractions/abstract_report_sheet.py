@@ -12,7 +12,7 @@ class AbstractReportSheet(ABC):
         pass
 
     @abstractmethod
-    def fill_small_stock(self, *args):
+    def fill_small_stock(self):
         pass
 
     @abstractmethod

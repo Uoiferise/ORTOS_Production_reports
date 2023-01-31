@@ -17,6 +17,7 @@ class BasicReport(AbstractReport):
         self._workbook.remove(self._workbook.active)
 
         self.create_styles()
+        self.create_report()
 
     def create_styles(self):
         # Creating a header style
@@ -29,6 +30,7 @@ class BasicReport(AbstractReport):
         self._workbook.add_named_style(STYLES_DICT['white'])
 
     def create_report(self):
-        self.create_styles()
-        for name in self._sheets:
-            BasicReportSheet(self._workbook, name=name, data=self._data[name])
+        name = 'basic_report'
+        BasicReportSheet(wb=self._workbook, name=name, data=self._data)
+
+        self._workbook.save(filename='test.xlsx')

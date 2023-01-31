@@ -15,7 +15,7 @@ def read_main_file(main_file: str) -> dict:
         for index, col in enumerate(COLUMN_INDEXES_INFO_DATA):
             nomenclature_info[index + 1] = input_sheet.cell(row=row, column=col).value
         nomenclature_info[max(nomenclature_info.keys()) + 1] = create_production_date(input_sheet=input_sheet, row=row)
-        main_dict[nomenclature_name] = Nomenclature(name=nomenclature_name, id_row=row, info=nomenclature_info)
+        main_dict[row] = Nomenclature(name=nomenclature_name, id_row=row, info=nomenclature_info)
 
     return main_dict
 
