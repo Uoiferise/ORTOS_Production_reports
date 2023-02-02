@@ -4,6 +4,8 @@ from basic_settings import HEADERS_DICT
 from settings import DATE_START, DATE_STOP
 from basic_functions.create_sheet_header import create_sheet_header
 from basic_functions.fill_small_stock import fill_small_stock
+from basic_functions.create_sheet_result import create_sheet_result
+from basic_functions.separation_nomenclatures import separation_nomenclatures
 from openpyxl.styles import Alignment
 
 
@@ -24,27 +26,32 @@ class BasicReportSheet(AbstractReportSheet):
         self._start_row = self._sheet.max_row
         self.transport_date()
         self.fill_small_stock()
+        self.separation_nomenclatures()
+        self.create_sheet_resul()
 
-    def create_sheet_header(self):
+    def create_sheet_header(self) -> None:
         create_sheet_header(sheet=self._sheet,
                             date_start=self._DATE_START,
                             date_stop=self._DATE_STOP,
                             header_dict=self._HEADERS_DICT)
 
-    def fill_small_stock(self):
+    def fill_small_stock(self) -> None:
         fill_small_stock(sheet=self._sheet,
                          start_row=self._start_row)
 
-    def create_sheet_resul(self):
+    def create_sheet_resul(self) -> None:
+        create_sheet_result(sheet=self._sheet,
+                            start_row=self._start_row,
+                            end_row=self._sheet.max_row)
+
+    def separation_nomenclatures(self) -> None:
+        separation_nomenclatures(sheet=self._sheet,
+                                 start_row=self._start_row)
+
+    def cell_style(self) -> None:
         pass
 
-    def separation_nomenclatures(self):
-        pass
-
-    def cell_style(self):
-        pass
-
-    def transport_date(self):
+    def transport_date(self) -> None:
         for row in range(self._start_row, self._start_row + len(self._data)):
             nomenclature = self._data[row-3]
             for col in range(1, 20):
