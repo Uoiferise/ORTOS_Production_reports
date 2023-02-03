@@ -20,9 +20,9 @@ class BasicReportSheet(AbstractReportSheet):
     _DATE_STOP = DATE_STOP
 
     def __init__(self, wb: Workbook, name: str, data):
-        self._wb = wb
+        self._sheet = wb.create_sheet(title=name, index=0)
         self._data = data
-        self._sheet = self._wb.create_sheet(title=name, index=0)
+
         self.create_sheet_header()
         self._start_row = self._sheet.max_row
         self.transport_date()

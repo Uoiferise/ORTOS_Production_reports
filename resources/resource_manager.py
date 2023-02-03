@@ -1,9 +1,12 @@
 from resources.excel_handler.read_data import read_data
+from settings import REPORTS_NAME_DICT
 
 
 class ResourceManager:
 
     __instance = None
+    __reports_name_dict = REPORTS_NAME_DICT
+    __otk_path = 'input_data/otk.xlsx'
 
     def __new__(cls, *args, **kwargs):
         if cls.__instance is None:
@@ -13,9 +16,13 @@ class ResourceManager:
     def __init__(self):
         pass
 
-    @staticmethod
-    def get_data(report_name: str, resource: str = 'xlsx') -> dict:
+    @classmethod
+    def get_data(cls, report_name: str, resource: str = 'xlsx') -> dict:
+        if report_name not in cls.__reports_name_dict.keys():
+            raise ValueError('Invalid reports name')
         if resource == 'xlsx':
-            return read_data(main_file=report_name, unshipped_file=report_name)
+            return read_data(main_file=cls.__reports_name_dict[report_name]['main_file'],
+                             unshipped_file=cls.__reports_name_dict[report_name]['unshipped_file'],
+                             otk_file=cls.__otk_path)
         else:
             raise ValueError('Invalid data source format')

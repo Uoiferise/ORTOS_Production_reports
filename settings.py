@@ -1,6 +1,8 @@
 # logic settings
-FOLDER_PATH_DICT = {
-    'abutments': {('abutments_info.xlsx', 'abutments_unsh.xlsx', 'Абатменты')},
+REPORTS_NAME_DICT = {
+    'abutments': {'main_file': 'input_data/abutments/abutments_info.xlsx',
+                  'unshipped_file': 'input_data/abutments/abutments_unsh.xlsx',
+                  'report_name': 'Абатменты'},
     'abutments_fired': ('abutments_fired_info.xlsx', 'abutments_fired_unsh.xlsx', 'Абатменты_выжигаемые'),
     'analog': ('analog_info.xlsx', 'analog_unsh.xlsx', 'Аналоги'),
     'blanks': ('blanks_info.xlsx', 'blanks_unsh.xlsx', 'Заготовки'),
