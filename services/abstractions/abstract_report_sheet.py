@@ -24,5 +24,9 @@ class AbstractReportSheet(ABC):
         pass
 
     @abstractmethod
-    def cell_style(self):
+    def cell_style(self, *args):
+        pass
+
+    @abstractmethod
+    def transport_date(self):
         pass

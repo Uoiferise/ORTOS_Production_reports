@@ -1,5 +1,6 @@
 from services.abstractions.abstract_report_sheet import AbstractReportSheet
 from openpyxl import Workbook
+from openpyxl.cell import Cell
 from basic_settings import HEADERS_DICT
 from settings import DATE_START, DATE_STOP
 from basic_functions.create_sheet_header import create_sheet_header
@@ -48,18 +49,27 @@ class BasicReportSheet(AbstractReportSheet):
         separation_nomenclatures(sheet=self._sheet,
                                  start_row=self._start_row)
 
-    def cell_style(self) -> None:
-        pass
+    @staticmethod
+    def cell_style(cell: Cell) -> None:
+        col = cell.column
+        if col <= 18 or col == 22:
+            cell.style = 'info'
+        elif col == 19:
+            cell.style = 'date'
+        elif col == 20 or col == 21:
+            cell.style = 'white'
+        if col >= 9:
+            cell.alignment = Alignment(horizontal='center', vertical='center')
 
     def transport_date(self) -> None:
-        for row in range(self._start_row, self._start_row + len(self._data)):
-            nomenclature = self._data[row-3]
-            for col in range(1, 20):
+        row = self._start_row
+        for nomenclature in self._data.values():
+            nomenclature_info = nomenclature.get_info()
+            for col in range(1, len(nomenclature_info) + 1):
                 cell = self._sheet.cell(row=row, column=col)
-                info = nomenclature.get_info()[col]
+                info = nomenclature_info[col]
                 if 9 <= col <= 18 and info is None:
                     info = 0
                 cell.value = info
-                cell.style = 'info'
-                if col >= 9:
-                    cell.alignment = Alignment(horizontal='center', vertical='center')
+                self.cell_style(cell)
+            row += 1
