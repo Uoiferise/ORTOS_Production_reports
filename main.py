@@ -4,7 +4,7 @@ from services.reports.abutments.abutments_report import ReportAbutments
 
 def main():
     data = ResourceManager.get_data(report_name='abutments')
-    ReportAbutments(data=data, sheets=tuple())
+    ReportAbutments(data=data)
 
 
 if __name__ == '__main__':

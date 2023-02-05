@@ -1,13 +1,19 @@
-# header information
+# a report sheet header information
 DATE_START = '01.01.2023'
 DATE_STOP = '01.02.2023'
+
+# a report name information
+DATE_START_RN = DATE_START[0:5]
+DATE_STOP_RN = DATE_STOP[0:5]
+
+OUTPUT_PATH = 'output_reports'
 
 # logic settings
 REPORTS_NAME_DICT = {
     'abutments': {
         'main_file': 'input_data/abutments/abutments_info.xlsx',
         'unshipped_file': 'input_data/abutments/abutments_unsh.xlsx',
-        'report_name': 'Абатменты'
+        'report_name': f'{OUTPUT_PATH}/Абатменты_{DATE_START_RN}-{DATE_STOP_RN}.xlsx'
     },
     'abutments_fired': {
         'main_file': 'input_data/abutments_fired/abutments_fired_info.xlsx',
