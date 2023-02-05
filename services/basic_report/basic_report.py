@@ -37,8 +37,6 @@ class BasicReport(AbstractReport):
         self._workbook.add_named_style(STYLES_DICT['white'])
 
     def create_report(self):
-        name = 'basic_report'
-
-        BasicReportSheet(wb=self._workbook, name=name, data=self._data)
+        BasicReportSheet(wb=self._workbook, name='basic_report', data=self._data)
 
         self._workbook.save(filename='output_reports/BasicReport.xlsx')

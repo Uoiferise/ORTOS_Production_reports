@@ -6,14 +6,6 @@ from settings import REPORTS_NAME_DICT
 class ReportAbutments(BasicReport):
     __slots__ = ()
 
-    def validation_data(self, data: dict) -> dict:
-        # Selection of non-archival items in data and delete stainless steel
-        data_copy = data.copy()
-        for key, value in data_copy.items():
-            if value.get_info()[6] == 'Да' or value.get_info()[7] == 'Да' or value.get_info()[5] == 'нерж':
-                del data[key]
-        return data
-
     def create_report(self):
         # divide the information into 2 sheets
         data_1, data_2 = self._data.copy(), self._data.copy()

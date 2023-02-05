@@ -1,12 +1,12 @@
 from resources.excel_handler.read_data import read_data
-from settings import REPORTS_NAME_DICT
+from settings import REPORTS_NAME_DICT, OTK_PATH
 
 
 class ResourceManager:
 
     __instance = None
     __reports_name_dict = REPORTS_NAME_DICT
-    __otk_path = 'input_data/otk.xlsx'
+    __otk_path = OTK_PATH
 
     def __new__(cls, *args, **kwargs):
         if cls.__instance is None:

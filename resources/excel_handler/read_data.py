@@ -25,7 +25,7 @@ def read_main_file(main_file: str) -> dict:
 def read_unshipped_file(unshipped_file: str) -> dict:
     unshipped_dict = dict()
 
-    if unshipped_file != 'input_data/implants/implants_stock.xlsx':
+    if unshipped_file != 'input_data/implants/implants_unsh.xlsx':
         unshipped_book = openpyxl.load_workbook(unshipped_file)
         unshipped_sheet = unshipped_book.active
 
