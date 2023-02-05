@@ -1,6 +1,5 @@
 from services.abstractions.abstract_report_sheet import AbstractReportSheet
 from openpyxl import Workbook
-from openpyxl.cell import Cell
 from basic_settings import HEADERS_DICT
 from settings import DATE_START, DATE_STOP
 from basic_functions.create_sheet_header import create_sheet_header
@@ -13,7 +12,7 @@ from openpyxl.styles import Alignment
 class BasicReportSheet(AbstractReportSheet):
     """Description will be later ... maybe"""
 
-    __slots__ = ('_wb', '_data')
+    __slots__ = ('_sheet', '_data', '_start_row')
 
     _HEADERS_DICT = HEADERS_DICT
     _DATE_START = DATE_START
@@ -50,7 +49,7 @@ class BasicReportSheet(AbstractReportSheet):
                                  start_row=self._start_row)
 
     @staticmethod
-    def cell_style(cell: Cell) -> None:
+    def cell_style(cell) -> None:
         col = cell.column
         if col <= 18 or col == 22:
             cell.style = 'info'

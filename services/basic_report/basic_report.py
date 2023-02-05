@@ -7,9 +7,9 @@ from services.basic_report.basic_settings import STYLES_DICT
 class BasicReport(AbstractReport):
     """Description will be later ... maybe"""
 
-    __slots__ = ('_name', '_data', '_sheets', '_workbook')
+    __slots__ = ('_data', '_sheets', '_workbook')
 
-    def __init__(self, data: dict, sheets: tuple):
+    def __init__(self, data: dict, sheets: tuple = None):
         self._data = data
         self._sheets = sheets
 
@@ -33,4 +33,4 @@ class BasicReport(AbstractReport):
         name = 'basic_report'
         BasicReportSheet(wb=self._workbook, name=name, data=self._data)
 
-        self._workbook.save(filename='test.xlsx')
+        self._workbook.save(filename='output_reports/test.xlsx')
