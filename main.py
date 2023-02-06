@@ -5,14 +5,14 @@ from services.reports.screws.screws_report import ReportScrews
 
 
 def main():
-    # data = ResourceManager.get_data(report_name='abutments')
-    # ReportAbutments(data=data)
+    data = ResourceManager.get_data(report_name='abutments')
+    ReportAbutments(data=data)
 
     # data = ResourceManager.get_data(report_name='analog')
     # ReportAnalog(data=data)
 
-    data = ResourceManager.get_data(report_name='screws')
-    ReportScrews(data=data)
+    # data = ResourceManager.get_data(report_name='screws')
+    # ReportScrews(data=data)
 
 
 if __name__ == '__main__':

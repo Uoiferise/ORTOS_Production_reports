@@ -19,7 +19,7 @@ class ReportScrews(BasicReport):
         return data
 
     def create_report(self):
-        # divide the information into 2 sheets
+        # divide the information into 7 sheets
         data_1 = dict()
         data_2 = dict()
         data_3 = dict()
@@ -48,12 +48,12 @@ class ReportScrews(BasicReport):
             else:
                 data_7[key] = value
 
-        BasicReportSheet(wb=self._workbook, name='Винты LM', data=data_1)
-        BasicReportSheet(wb=self._workbook, name='Собств. разработка', data=data_2)
-        BasicReportSheet(wb=self._workbook, name='Zirkonzahn', data=data_3)
-        BasicReportSheet(wb=self._workbook, name='NT-trading', data=data_4)
-        BasicReportSheet(wb=self._workbook, name='SIRONA', data=data_5)
-        BasicReportSheet(wb=self._workbook, name='Для трансферов', data=data_6)
         BasicReportSheet(wb=self._workbook, name='Лабораторные винты LM', data=data_7)
+        BasicReportSheet(wb=self._workbook, name='Для трансферов', data=data_6)
+        BasicReportSheet(wb=self._workbook, name='SIRONA', data=data_5)
+        BasicReportSheet(wb=self._workbook, name='NT-trading', data=data_4)
+        BasicReportSheet(wb=self._workbook, name='Zirkonzahn', data=data_3)
+        BasicReportSheet(wb=self._workbook, name='Собств. разработка', data=data_2)
+        BasicReportSheet(wb=self._workbook, name='Винты LM', data=data_1)
 
         self._workbook.save(filename=REPORTS_NAME_DICT['screws']['report_name'])
