@@ -1,32 +1,31 @@
 from resources.resource_manager import ResourceManager
 from services import ReportAbutments, ReportAbutmentsFired, ReportAnalog, ReportFormers, \
-    ReportScanBody, ReportScrews, ReportSleeve, ReportTransfers
+    ReportScanBody, ReportScrews, ReportSleeve, ReportTitaniumBase, ReportTransfers
+
+
+REPORTS_DICT = {
+    # 'abutments': ReportAbutments,
+    # 'abutments_fired': ReportAbutmentsFired,
+    # 'analog': ReportAnalog,
+    # 'blanks': None,
+    # 'formers': ReportFormers,
+    # 'implants': None,
+    # 'scan_body': ReportScanBody,
+    # 'screws': ReportScrews,
+    # 'sleeve': ReportSleeve,
+    'titanium_base': ReportTitaniumBase,
+    # 'transfers': ReportTransfers,
+}
 
 
 def main():
-    # data = ResourceManager.get_data(report_name='abutments')
-    # ReportAbutments(data=data)
-    #
-    # data = ResourceManager.get_data(report_name='abutments_fired')
-    # ReportAbutmentsFired(data=data)
-    #
-    # data = ResourceManager.get_data(report_name='analog')
-    # ReportAnalog(data=data)
-    #
-    # data = ResourceManager.get_data(report_name='screws')
-    # ReportScrews(data=data)
-    #
-    # data = ResourceManager.get_data(report_name='sleeve')
-    # ReportSleeve(data=data)
-    #
-    # data = ResourceManager.get_data(report_name='transfers')
-    # ReportTransfers(data=data)
-    #
-    # data = ResourceManager.get_data(report_name='scan_body')
-    # ReportScanBody(data=data)
-
-    data = ResourceManager.get_data(report_name='formers')
-    ReportFormers(data=data)
+    for report_name, report_class in REPORTS_DICT.items():
+        if report_class is None:
+            continue
+        data = ResourceManager.get_data(report_name=report_name)
+        report_class(data=data)
+        print(f'{report_name} is done!')
+        print()
 
 
 if __name__ == '__main__':

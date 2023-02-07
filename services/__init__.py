@@ -5,4 +5,5 @@ from reports import ReportFormers
 from reports import ReportScanBody
 from reports import ReportScrews
 from reports import ReportSleeve
+from reports import ReportTitaniumBase
 from reports import ReportTransfers

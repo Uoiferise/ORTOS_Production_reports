@@ -5,4 +5,5 @@ from formers_report import ReportFormers
 from scan_body_report import ReportScanBody
 from screws_report import ReportScrews
 from sleeve_report import ReportSleeve
+from titanium_base_report import ReportTitaniumBase
 from transfers_report import ReportTransfers

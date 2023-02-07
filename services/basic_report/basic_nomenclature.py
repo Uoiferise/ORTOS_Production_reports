@@ -10,3 +10,12 @@ class Nomenclature(AbstractNomenclature):
 
     def get_info(self) -> dict:
         return self._info
+
+    def set_info(self, info: dict) -> None:
+        self._info = info
+
+    def aggregate_info(self, info: dict = None) -> None:
+        if info is not None:
+            for key in self._info.keys():
+                if isinstance(self._info[key], int):
+                    self._info[key] = self._info[key] + (0, info[key])[info[key] is not None]

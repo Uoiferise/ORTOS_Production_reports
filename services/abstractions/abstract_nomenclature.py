@@ -10,3 +10,11 @@ class AbstractNomenclature(ABC):
     @abstractmethod
     def get_info(self):
         pass
+
+    @abstractmethod
+    def set_info(self, *args, **kwargs):
+        pass
+
+    @abstractmethod
+    def aggregate_info(self, *args, **kwargs):
+        pass
