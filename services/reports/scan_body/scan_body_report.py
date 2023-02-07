@@ -3,7 +3,7 @@ from services.basic_report.basic_report_sheet import BasicReportSheet
 from settings import REPORTS_NAME_DICT
 
 
-class ReportSB(BasicReport):
+class ReportScanBody(BasicReport):
     __slots__ = ()
 
     def validation_data(self, data: dict) -> dict:
