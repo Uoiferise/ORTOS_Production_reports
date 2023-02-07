@@ -3,7 +3,7 @@ from services.basic_report.basic_report_sheet import BasicReportSheet
 from settings import REPORTS_NAME_DICT
 
 
-class ReportAnalog(BasicReport):
+class ReportSB(BasicReport):
     __slots__ = ()
 
     def validation_data(self, data: dict) -> dict:
@@ -12,11 +12,12 @@ class ReportAnalog(BasicReport):
         for key, value in data_copy.items():
             if value.get_info()[6] == 'Да' or \
                     value.get_info()[7] == 'Да' or \
-                    'нерж' not in value.get_info()[5].lower():
+                    ('нерж' in value.get_info()[5].lower() and 'б' in value.get_info()[5].split()[0]) or \
+                    ('латунь' in value.get_info()[5].lower() and 'б' in value.get_info()[5].split()[0]):
                 del data[key]
         return data
 
     def create_report(self):
-        BasicReportSheet(wb=self._workbook, name='Аналоги', data=self._data)
+        BasicReportSheet(wb=self._workbook, name='Скан_боди', data=self._data)
 
-        self._workbook.save(filename=REPORTS_NAME_DICT['analog']['report_name'])
+        self._workbook.save(filename=REPORTS_NAME_DICT['scan_body']['report_name'])
