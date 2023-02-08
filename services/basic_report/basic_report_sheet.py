@@ -55,8 +55,8 @@ class BasicReportSheet(AbstractReportSheet):
         if col >= 9:
             cell.alignment = Alignment(horizontal='center', vertical='center')
 
-    def transport_date(self, data: dict) -> None:
-        row = self._start_row
+    def transport_date(self, data: dict, start_row: int = None) -> None:
+        row = (start_row, self._start_row)[start_row is None]
         for nomenclature in data.values():
             nomenclature_info = nomenclature.get_info()
             for col in range(1, len(nomenclature_info) + 1):

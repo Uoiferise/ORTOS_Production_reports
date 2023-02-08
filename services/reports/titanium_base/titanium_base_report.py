@@ -96,13 +96,7 @@ class TBReportSheet(BasicReportSheet):
     def create_sheet(self) -> None:
         self.create_sheet_header()
         self.transport_date(self._data_bridge)
-        self.fill_small_stock()
-        self.separation_nomenclatures()
-        self.create_sheet_resul()
-
-        self._start_row = self._sheet.max_row + 1
-
-        self.transport_date(self._data_bridge)
+        self.transport_date(self._data_single, start_row=self._sheet.max_row + 2)
         self.fill_small_stock()
         self.separation_nomenclatures()
         self.create_sheet_resul()
