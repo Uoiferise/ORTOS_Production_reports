@@ -85,10 +85,8 @@ class TBReportSheet(BasicReportSheet):
         for key, value in data.items():
             if 'ТО bridge' == value.get_info()[1]:
                 data_bridge[key] = value
-                print('ТО bridge')
             else:
                 data_single[key] = value
-                print('else')
         return data_bridge, data_single
 
     def __init__(self, wb: Workbook, name: str, data):
@@ -97,6 +95,13 @@ class TBReportSheet(BasicReportSheet):
 
     def create_sheet(self) -> None:
         self.create_sheet_header()
+        self.transport_date(self._data_bridge)
+        self.fill_small_stock()
+        self.separation_nomenclatures()
+        self.create_sheet_resul()
+
+        self._start_row = self._sheet.max_row + 1
+
         self.transport_date(self._data_bridge)
         self.fill_small_stock()
         self.separation_nomenclatures()
