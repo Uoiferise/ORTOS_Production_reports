@@ -2,6 +2,7 @@ import openpyxl
 from services.basic_report.basic_report import BasicReport
 from services.basic_report.basic_report_sheet import BasicReportSheet
 from settings import REPORTS_NAME_DICT
+from openpyxl.workbook import Workbook
 
 
 class ReportTitaniumBase(BasicReport):
@@ -32,7 +33,7 @@ class ReportTitaniumBase(BasicReport):
 
         return data
 
-    def create_report(self):
+    def create_report(self) -> None:
         # divide the information into 7 sheets
         data_1 = dict()
         data_2 = dict()
@@ -58,12 +59,45 @@ class ReportTitaniumBase(BasicReport):
             else:
                 data_7[key] = value
 
-        BasicReportSheet(wb=self._workbook, name='Остальное', data=data_7)
-        BasicReportSheet(wb=self._workbook, name='Arum', data=data_6)
-        BasicReportSheet(wb=self._workbook, name='GEO Step', data=data_5)
-        BasicReportSheet(wb=self._workbook, name='GEO Bell', data=data_4)
-        BasicReportSheet(wb=self._workbook, name='Half (ИМ Абатменты.ру)', data=data_3)
-        BasicReportSheet(wb=self._workbook, name='Flat с насечками (ИМ Ортос)', data=data_2)
-        BasicReportSheet(wb=self._workbook, name='Patch', data=data_1)
+        sheets_dict = {
+            'Остальное': (BasicReportSheet, data_7),
+            'Arum': (BasicReportSheet, data_6),
+            'GEO Step': (BasicReportSheet, data_5),
+            'GEO Bell': (TBReportSheet, data_4),
+            'Half (ИМ Абатменты.ру)': (BasicReportSheet, data_3),
+            'Flat с насечками (ИМ Ортос)': (TBReportSheet, data_2),
+            'Patch': (TBReportSheet, data_1),
+        }
+
+        for name, value in sheets_dict.items():
+            current_sheet = value[0](wb=self._workbook, name=name, data=value[1])
+            current_sheet.create_sheet()
 
         self._workbook.save(filename=REPORTS_NAME_DICT['titanium_base']['report_name'])
+
+
+class TBReportSheet(BasicReportSheet):
+    __slots__ = ('_data_bridge', '_data_single')
+
+    @staticmethod
+    def divide_data(data: dict) -> tuple:
+        data_bridge, data_single = dict(), dict()
+        for key, value in data.items():
+            if 'ТО bridge' == value.get_info()[1]:
+                data_bridge[key] = value
+                print('ТО bridge')
+            else:
+                data_single[key] = value
+                print('else')
+        return data_bridge, data_single
+
+    def __init__(self, wb: Workbook, name: str, data):
+        super().__init__(wb, name, data)
+        self._data_bridge, self._data_single = self.divide_data(data=self._data)
+
+    def create_sheet(self) -> None:
+        self.create_sheet_header()
+        self.transport_date(self._data_bridge)
+        self.fill_small_stock()
+        self.separation_nomenclatures()
+        self.create_sheet_resul()
