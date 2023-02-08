@@ -30,5 +30,9 @@ class AbstractReportSheet(ABC):
         pass
 
     @abstractmethod
-    def transport_date(self):
+    def transport_date(self, *args):
+        pass
+
+    @abstractmethod
+    def create_sheet(self):
         pass

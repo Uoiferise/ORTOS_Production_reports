@@ -58,12 +58,18 @@ class ReportTitaniumBase(BasicReport):
             else:
                 data_7[key] = value
 
-        BasicReportSheet(wb=self._workbook, name='Остальное', data=data_7)
-        BasicReportSheet(wb=self._workbook, name='Arum', data=data_6)
-        BasicReportSheet(wb=self._workbook, name='GEO Step', data=data_5)
-        BasicReportSheet(wb=self._workbook, name='GEO Bell', data=data_4)
-        BasicReportSheet(wb=self._workbook, name='Half (ИМ Абатменты.ру)', data=data_3)
-        BasicReportSheet(wb=self._workbook, name='Flat с насечками (ИМ Ортос)', data=data_2)
-        BasicReportSheet(wb=self._workbook, name='Patch', data=data_1)
+        sheets_dict = {
+            'Остальное': (BasicReportSheet, data_7),
+            'Arum': (BasicReportSheet, data_6),
+            'GEO Step': (BasicReportSheet, data_5),
+            'GEO Bell': (BasicReportSheet, data_4),
+            'Half (ИМ Абатменты.ру)': (BasicReportSheet, data_3),
+            'Flat с насечками (ИМ Ортос)': (BasicReportSheet, data_2),
+            'Patch': (BasicReportSheet, data_1),
+        }
+
+        for name, value in sheets_dict.items():
+            current_sheet = value[0](wb=self._workbook, name=name, data=value[1])
+            current_sheet.create_sheet()
 
         self._workbook.save(filename=REPORTS_NAME_DICT['titanium_base']['report_name'])

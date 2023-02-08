@@ -10,7 +10,7 @@ from openpyxl.styles import Alignment
 
 
 class BasicReportSheet(AbstractReportSheet):
-    """Description will be later ... maybe"""
+    """The class responsible for creating the report sheet"""
 
     __slots__ = ('_sheet', '_data', '_start_row')
 
@@ -21,19 +21,14 @@ class BasicReportSheet(AbstractReportSheet):
     def __init__(self, wb: Workbook, name: str, data):
         self._sheet = wb.create_sheet(title=name, index=0)
         self._data = data
-
-        self.create_sheet_header()
         self._start_row = self._sheet.max_row
-        self.transport_date()
-        self.fill_small_stock()
-        self.separation_nomenclatures()
-        self.create_sheet_resul()
 
     def create_sheet_header(self) -> None:
         create_sheet_header(sheet=self._sheet,
                             date_start=self._DATE_START,
                             date_stop=self._DATE_STOP,
                             header_dict=self._HEADERS_DICT)
+        self._start_row = self._sheet.max_row
 
     def fill_small_stock(self) -> None:
         fill_small_stock(sheet=self._sheet,
@@ -60,9 +55,9 @@ class BasicReportSheet(AbstractReportSheet):
         if col >= 9:
             cell.alignment = Alignment(horizontal='center', vertical='center')
 
-    def transport_date(self) -> None:
+    def transport_date(self, data: dict) -> None:
         row = self._start_row
-        for nomenclature in self._data.values():
+        for nomenclature in data.values():
             nomenclature_info = nomenclature.get_info()
             for col in range(1, len(nomenclature_info) + 1):
                 cell = self._sheet.cell(row=row, column=col)
@@ -72,3 +67,10 @@ class BasicReportSheet(AbstractReportSheet):
                 cell.value = info
                 self.cell_style(cell)
             row += 1
+
+    def create_sheet(self) -> None:
+        self.create_sheet_header()
+        self.transport_date(data=self._data)
+        self.fill_small_stock()
+        self.separation_nomenclatures()
+        self.create_sheet_resul()
