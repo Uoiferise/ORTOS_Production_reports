@@ -3,6 +3,7 @@ from services.basic_report.basic_report import BasicReport
 from services.basic_report.basic_report_sheet import BasicReportSheet
 from settings import REPORTS_NAME_DICT
 from openpyxl.workbook import Workbook
+from openpyxl.styles import Alignment, Font
 
 
 class ReportTitaniumBase(BasicReport):
@@ -93,10 +94,31 @@ class TBReportSheet(BasicReportSheet):
         super().__init__(wb, name, data)
         self._data_bridge, self._data_single = self.divide_data(data=self._data)
 
+    def add_title(self, title: str, row: int) -> None:
+        cell = self._sheet.cell(row=row, column=5)
+        cell.value = title
+        for col in range(1, self._sheet.max_column + 1):
+            cell = self._sheet.cell(row=row, column=col)
+            self.cell_style(cell)
+            if col == 5:
+                cell.font = Font(name='Arial', bold=True, size=10)
+                cell.alignment = Alignment(horizontal='center', vertical='center')
+
     def create_sheet(self) -> None:
         self.create_sheet_header()
-        self.transport_date(self._data_bridge)
-        self.transport_date(self._data_single, start_row=self._sheet.max_row + 2)
+
+        self.add_title(title='Мостовидные', row=self._sheet.max_row)
+        start_row = self._sheet.max_row + 1
+        self.transport_date(self._data_bridge, start_row=start_row)
+        self.separation_nomenclatures(start_row=start_row)
+        for col in range(1, self._sheet.max_column + 1):
+            cell = self._sheet.cell(row=self._sheet.max_row, column=col)
+            self.cell_style(cell)
+
+        self.add_title(title='Одиночные', row=self._sheet.max_row+1)
+        start_row = self._sheet.max_row + 1
+        self.transport_date(self._data_single, start_row=start_row)
+        self.separation_nomenclatures(start_row=start_row)
+
         self.fill_small_stock()
-        self.separation_nomenclatures()
         self.create_sheet_resul()

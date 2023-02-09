@@ -39,9 +39,9 @@ class BasicReportSheet(AbstractReportSheet):
                             start_row=self._start_row,
                             end_row=self._sheet.max_row)
 
-    def separation_nomenclatures(self) -> None:
+    def separation_nomenclatures(self, start_row: int = None) -> None:
         separation_nomenclatures(sheet=self._sheet,
-                                 start_row=self._start_row)
+                                 start_row=(start_row, self._start_row)[start_row is None])
 
     @staticmethod
     def cell_style(cell) -> None:

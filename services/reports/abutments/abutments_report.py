@@ -25,7 +25,13 @@ class ReportAbutments(BasicReport):
             else:
                 del data_2[key]
 
-        BasicReportSheet(wb=self._workbook, name='Приливаемый', data=data_2)
-        BasicReportSheet(wb=self._workbook, name='Прямой, временный', data=data_1)
+        sheets_dict = {
+            'Приливаемый': (BasicReportSheet, data_2),
+            'Прямой, временный': (BasicReportSheet, data_1),
+        }
+
+        for name, value in sheets_dict.items():
+            current_sheet = value[0](wb=self._workbook, name=name, data=value[1])
+            current_sheet.create_sheet()
 
         self._workbook.save(filename=REPORTS_NAME_DICT['abutments']['report_name'])
