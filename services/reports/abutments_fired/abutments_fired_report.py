@@ -7,6 +7,12 @@ class ReportAbutmentsFired(BasicReport):
     __slots__ = ()
 
     def create_report(self):
-        BasicReportSheet(wb=self._workbook, name='Абатменты_выжигаемые', data=self._data)
+        sheets_dict = {
+            'Абатменты_выжигаемые': (BasicReportSheet, self._data),
+        }
+
+        for name, value in sheets_dict.items():
+            current_sheet = value[0](wb=self._workbook, name=name, data=value[1])
+            current_sheet.create_sheet()
 
         self._workbook.save(filename=REPORTS_NAME_DICT['abutments_fired']['report_name'])

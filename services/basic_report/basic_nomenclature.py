@@ -5,6 +5,7 @@ class Nomenclature(AbstractNomenclature):
 
     def __init__(self, name: str, id_row: int, info: dict):
         self.name = name
+        self.vendor_code = name.split()[0][:6]
         self.id_row = id_row
         self._info = info
 

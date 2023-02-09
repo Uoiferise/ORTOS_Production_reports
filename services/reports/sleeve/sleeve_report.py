@@ -7,6 +7,12 @@ class ReportSleeve(BasicReport):
     __slots__ = ()
 
     def create_report(self):
-        BasicReportSheet(wb=self._workbook, name='Втулка', data=self._data)
+        sheets_dict = {
+            'Втулка': (BasicReportSheet, self._data),
+        }
+
+        for name, value in sheets_dict.items():
+            current_sheet = value[0](wb=self._workbook, name=name, data=value[1])
+            current_sheet.create_sheet()
 
         self._workbook.save(filename=REPORTS_NAME_DICT['sleeve']['report_name'])

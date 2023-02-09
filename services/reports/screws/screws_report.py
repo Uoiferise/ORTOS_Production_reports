@@ -48,12 +48,18 @@ class ReportScrews(BasicReport):
             else:
                 data_7[key] = value
 
-        BasicReportSheet(wb=self._workbook, name='Лабораторные винты LM', data=data_7)
-        BasicReportSheet(wb=self._workbook, name='Для трансферов', data=data_6)
-        BasicReportSheet(wb=self._workbook, name='SIRONA', data=data_5)
-        BasicReportSheet(wb=self._workbook, name='NT-trading', data=data_4)
-        BasicReportSheet(wb=self._workbook, name='Zirkonzahn', data=data_3)
-        BasicReportSheet(wb=self._workbook, name='Собств. разработка', data=data_2)
-        BasicReportSheet(wb=self._workbook, name='Винты LM', data=data_1)
+        sheets_dict = {
+            'Лабораторные винты LM': (BasicReportSheet, data_7),
+            'Для трансферов': (BasicReportSheet, data_6),
+            'SIRONA': (BasicReportSheet, data_5),
+            'NT-trading': (BasicReportSheet, data_4),
+            'Zirkonzahn': (BasicReportSheet, data_3),
+            'Собств. разработка': (BasicReportSheet, data_2),
+            'Винты LM': (BasicReportSheet, data_1),
+        }
+
+        for name, value in sheets_dict.items():
+            current_sheet = value[0](wb=self._workbook, name=name, data=value[1])
+            current_sheet.create_sheet()
 
         self._workbook.save(filename=REPORTS_NAME_DICT['screws']['report_name'])

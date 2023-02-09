@@ -22,7 +22,7 @@ class ReportTitaniumBase(BasicReport):
                 add_info = data[archival_nom_name].get_info()
                 data[actual_nom_name].aggregate_info(add_info)
 
-        # Selection of non-archival items in data and delete some nomenclatures
+        # Selection of non-archival items in data and delete some nomenclatures / speed = O(n**2)
         data_copy = data.copy()
         for key, value in data_copy.items():
             if value.get_info()[6] == 'Да' or \
@@ -59,6 +59,28 @@ class ReportTitaniumBase(BasicReport):
                 data_6[key] = value
             else:
                 data_7[key] = value
+
+        # del_keys = []
+        # for key, value in data_1.items():
+        #     if 'P' in value.get_info()[8] or 'Н' in value.get_info()[8]:
+        #         for k, v in data_1.items():
+        #             if value.vendor_code == v.vendor_code and \
+        #                     'P' not in v.get_info()[8] and \
+        #                     'Н' not in v.get_info()[8] and \
+        #                     value.get_info()[8][:-2] == v.get_info()[8][:-2]:
+        #                 v.aggregate_info(value.get_info())
+        #         del_keys.append(key)
+
+        for key, value in data_1.items():
+            if 'P' in value.get_info()[8] or 'Н' in value.get_info()[8]:
+                for k, v in data_1.items():
+                    if value.vendor_code == v.vendor_code and value.get_info()[8][:-2] == v.get_info()[8][:-2]:
+                        print(v.vendor_code)
+                        if len(v.get_info()[8]) == 8:
+                            print(f'{key} == {k}')
+
+        # for key in del_keys:
+        #     del data_1[key]
 
         sheets_dict = {
             'Остальное': (BasicReportSheet, data_7),

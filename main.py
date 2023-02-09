@@ -4,7 +4,7 @@ from services import ReportAbutments, ReportAbutmentsFired, ReportAnalog, Report
 
 
 REPORTS_DICT = {
-    'abutments': ReportAbutments,
+    # 'abutments': ReportAbutments,
     # 'abutments_fired': ReportAbutmentsFired,
     # 'analog': ReportAnalog,
     # 'blanks': None,
@@ -13,7 +13,7 @@ REPORTS_DICT = {
     # 'scan_body': ReportScanBody,
     # 'screws': ReportScrews,
     # 'sleeve': ReportSleeve,
-    # 'titanium_base': ReportTitaniumBase,
+    'titanium_base': ReportTitaniumBase,
     # 'transfers': ReportTransfers,
 }
 
