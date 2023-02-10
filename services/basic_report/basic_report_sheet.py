@@ -23,6 +23,9 @@ class BasicReportSheet(AbstractReportSheet):
         self._data = data
         self._start_row = self._sheet.max_row
 
+    def get_sheet(self):
+        return self._sheet
+
     def create_sheet_header(self) -> None:
         create_sheet_header(sheet=self._sheet,
                             date_start=self._DATE_START,

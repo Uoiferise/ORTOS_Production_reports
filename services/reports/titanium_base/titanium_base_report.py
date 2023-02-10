@@ -3,11 +3,31 @@ from services.basic_report.basic_report import BasicReport
 from services.basic_report.basic_report_sheet import BasicReportSheet
 from settings import REPORTS_NAME_DICT
 from openpyxl.workbook import Workbook
-from openpyxl.styles import Alignment, Font
+from openpyxl.styles import Alignment, Font, PatternFill
 
 
 class ReportTitaniumBase(BasicReport):
     __slots__ = ()
+
+    __TB_YELLOW_NOMENCLATURES = (
+        '38779',
+        '38780',
+        '38781',
+        '38711',
+        '38732',
+        '38735',
+        '38737',
+        '38755',
+        '38625',
+        '38626',
+        '38621',
+        '38622',
+        '38624',
+        '38606',
+        '38608',
+        '38617',
+        '38618'
+    )
 
     __TB_ACTUAL_BOOK_PATH = 'services/reports/titanium_base/titanium_base_actual.xlsx'
 
@@ -91,6 +111,12 @@ class ReportTitaniumBase(BasicReport):
         for name, value in sheets_dict.items():
             current_sheet = value[0](wb=self._workbook, name=name, data=value[1])
             current_sheet.create_sheet()
+            if name in ['GEO Step', 'Arum']:
+                sheet = current_sheet.get_sheet()
+                for row in range(7, sheet.max_row):
+                    cell = sheet.cell(row=row, column=5)
+                    if cell.value is not None and cell.value.split()[0][:5] in self.__TB_YELLOW_NOMENCLATURES:
+                        cell.fill = PatternFill("solid", fgColor="FFFF99")
 
         self._workbook.save(filename=REPORTS_NAME_DICT['titanium_base']['report_name'])
 
