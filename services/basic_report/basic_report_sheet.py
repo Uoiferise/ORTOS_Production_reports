@@ -37,7 +37,7 @@ class BasicReportSheet(AbstractReportSheet):
         fill_small_stock(sheet=self._sheet,
                          start_row=self._start_row)
 
-    def create_sheet_resul(self) -> None:
+    def create_sheet_resul(self, ) -> None:
         create_sheet_result(sheet=self._sheet,
                             start_row=self._start_row,
                             end_row=self._sheet.max_row)

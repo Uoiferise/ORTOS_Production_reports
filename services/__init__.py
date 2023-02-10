@@ -1,6 +1,7 @@
 from reports import ReportAbutments
 from reports import ReportAbutmentsFired
 from reports import ReportAnalog
+from reports import ReportBlanks
 from reports import ReportFormers
 from reports import ReportScanBody
 from reports import ReportScrews

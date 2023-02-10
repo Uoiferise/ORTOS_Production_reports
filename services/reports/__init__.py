@@ -1,6 +1,7 @@
 from abutments_report import ReportAbutments
 from abutments_fired_report import ReportAbutmentsFired
 from analog_report import ReportAnalog
+from blanks_report import ReportBlanks
 from formers_report import ReportFormers
 from scan_body_report import ReportScanBody
 from screws_report import ReportScrews

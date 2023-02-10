@@ -1,5 +1,5 @@
 from resources.resource_manager import ResourceManager
-from services import ReportAbutments, ReportAbutmentsFired, ReportAnalog, ReportFormers, \
+from services import ReportAbutments, ReportAbutmentsFired, ReportAnalog, ReportBlanks, ReportFormers, \
     ReportScanBody, ReportScrews, ReportSleeve, ReportTitaniumBase, ReportTransfers
 
 
@@ -7,7 +7,7 @@ REPORTS_DICT = {
     'abutments': ReportAbutments,
     'abutments_fired': ReportAbutmentsFired,
     'analog': ReportAnalog,
-    'blanks': None,
+    'blanks': ReportBlanks,
     'formers': ReportFormers,
     'implants': None,
     'scan_body': ReportScanBody,
