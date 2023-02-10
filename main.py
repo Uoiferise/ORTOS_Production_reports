@@ -4,17 +4,17 @@ from services import ReportAbutments, ReportAbutmentsFired, ReportAnalog, Report
 
 
 REPORTS_DICT = {
-    # 'abutments': ReportAbutments,
-    # 'abutments_fired': ReportAbutmentsFired,
-    # 'analog': ReportAnalog,
-    # 'blanks': None,
-    # 'formers': ReportFormers,
-    # 'implants': None,
-    # 'scan_body': ReportScanBody,
-    # 'screws': ReportScrews,
-    # 'sleeve': ReportSleeve,
+    'abutments': ReportAbutments,
+    'abutments_fired': ReportAbutmentsFired,
+    'analog': ReportAnalog,
+    'blanks': None,
+    'formers': ReportFormers,
+    'implants': None,
+    'scan_body': ReportScanBody,
+    'screws': ReportScrews,
+    'sleeve': ReportSleeve,
     'titanium_base': ReportTitaniumBase,
-    # 'transfers': ReportTransfers,
+    'transfers': ReportTransfers,
 }
 
 
