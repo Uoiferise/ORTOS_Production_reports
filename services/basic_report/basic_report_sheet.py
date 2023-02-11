@@ -12,14 +12,15 @@ from openpyxl.styles import Alignment
 class BasicReportSheet(AbstractReportSheet):
     """The class responsible for creating the report sheet"""
 
-    __slots__ = ('_sheet', '_data', '_start_row')
+    __slots__ = ('name', '_sheet', '_data', '_start_row')
 
     _HEADERS_DICT = HEADERS_DICT
     _DATE_START = DATE_START
     _DATE_STOP = DATE_STOP
 
     def __init__(self, wb: Workbook, name: str, data):
-        self._sheet = wb.create_sheet(title=name, index=0)
+        self.name = name
+        self._sheet = wb.create_sheet(title=self.name, index=0)
         self._data = data
         self._start_row = self._sheet.max_row
 

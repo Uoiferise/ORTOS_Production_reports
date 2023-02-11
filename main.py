@@ -1,20 +1,20 @@
 from resources.resource_manager import ResourceManager
 from services import ReportAbutments, ReportAbutmentsFired, ReportAnalog, ReportBlanks, ReportFormers, \
-    ReportScanBody, ReportScrews, ReportSleeve, ReportTitaniumBase, ReportTransfers
+    ReportImplants, ReportScanBody, ReportScrews, ReportSleeve, ReportTitaniumBase, ReportTransfers
 
 
 REPORTS_DICT = {
-    'abutments': ReportAbutments,
-    'abutments_fired': ReportAbutmentsFired,
-    'analog': ReportAnalog,
-    'blanks': ReportBlanks,
-    'formers': ReportFormers,
-    'implants': None,
-    'scan_body': ReportScanBody,
-    'screws': ReportScrews,
-    'sleeve': ReportSleeve,
-    'titanium_base': ReportTitaniumBase,
-    'transfers': ReportTransfers,
+    # 'abutments': ReportAbutments,
+    # 'abutments_fired': ReportAbutmentsFired,
+    # 'analog': ReportAnalog,
+    # 'blanks': ReportBlanks,
+    # 'formers': ReportFormers,
+    'implants': ReportImplants,
+    # 'scan_body': ReportScanBody,
+    # 'screws': ReportScrews,
+    # 'sleeve': ReportSleeve,
+    # 'titanium_base': ReportTitaniumBase,
+    # 'transfers': ReportTransfers,
 }
 
 

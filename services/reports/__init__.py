@@ -3,6 +3,7 @@ from abutments_fired_report import ReportAbutmentsFired
 from analog_report import ReportAnalog
 from blanks_report import ReportBlanks
 from formers_report import ReportFormers
+from implants_reports import ReportImplants
 from scan_body_report import ReportScanBody
 from screws_report import ReportScrews
 from sleeve_report import ReportSleeve

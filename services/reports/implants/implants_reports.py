@@ -5,7 +5,7 @@ import openpyxl
 from copy import copy
 
 
-class ReportBlanks(BasicReport):
+class ReportImplants(BasicReport):
     __slots__ = ()
 
     def create_report(self):
@@ -16,22 +16,26 @@ class ReportBlanks(BasicReport):
                 data_1[key] = value
 
         sheets_dict = {
-            'Implantium': (BasicReportSheet, self._data),
-            'Nobel Active': (BasicReportSheet, self._data),
-            'Osstem': (BasicReportSheet, data_1),
+            'Implantium': (ReportImplantsSheet, self._data),
+            'Nobel Active': (ReportImplantsSheet, self._data),
+            'Osstem': (ReportImplantsSheet, data_1),
         }
 
         for name, value in sheets_dict.items():
             current_sheet = value[0](wb=self._workbook, name=name, data=value[1])
             current_sheet.create_sheet()
 
-        self._workbook.save(filename=REPORTS_NAME_DICT['blanks']['report_name'])
+        self._workbook.save(filename=REPORTS_NAME_DICT['implants']['report_name'])
 
 
-class ReportBlanksSheet(BasicReportSheet):
+class ReportImplantsSheet(BasicReportSheet):
     __slots__ = ()
 
-    __BLANKS_LM1_PATH = 'services/reports/blanks/blanks_LM1.xlsx'
+    __COPY_SHEET_PATH_DICT = {
+        'Implantium': 'services/reports/implants/Implantium.xlsx',
+        'Nobel Active': 'services/reports/implants/Nobel Active.xlsx',
+        'Osstem': 'services/reports/implants/Osstem.xlsx',
+    }
 
     def copy_sheet(self, wb_path: str) -> None:
         wb_from = openpyxl.load_workbook(wb_path)
@@ -60,15 +64,23 @@ class ReportBlanksSheet(BasicReportSheet):
         for row in range(7, self._sheet.max_row + 1):
             nomenclature_name = self._sheet.cell(row=row, column=5).value
             if data.get(nomenclature_name, None) is not None:
-                for col in range(1, self._sheet.max_column + 1):
+                for col in range(9, 22):
                     cell = self._sheet.cell(row=row, column=col)
                     info = data[nomenclature_name].get_info()[col]
+                    if 9 <= col <= 18 and info is None:
+                        info = 0
+                    cell.value = info
+            elif nomenclature_name is not None and nomenclature_name != 'Итого':
+                for col in range(9, 22):
+                    cell = self._sheet.cell(row=row, column=col)
+                    if 9 <= col <= 18:
+                        info = 0
+                    else:
+                        info = None
                     cell.value = info
         self._sheet.column_dimensions.group('A', 'D', hidden=True)
 
     def create_sheet(self) -> None:
         self.create_sheet_header()
-        self.copy_sheet(wb_path=self.__BLANKS_LM1_PATH)
+        self.copy_sheet(wb_path=self.__COPY_SHEET_PATH_DICT[self.name])
         self.transport_date(data=self._data)
-        self.fill_small_stock()
-        self.create_sheet_resul()

@@ -3,6 +3,7 @@ from reports import ReportAbutmentsFired
 from reports import ReportAnalog
 from reports import ReportBlanks
 from reports import ReportFormers
+from reports import ReportImplants
 from reports import ReportScanBody
 from reports import ReportScrews
 from reports import ReportSleeve
