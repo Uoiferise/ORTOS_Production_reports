@@ -118,7 +118,7 @@ class ReportTitaniumBase(BasicReport):
                     if cell.value is not None and cell.value.split()[0][:5] in self.__TB_YELLOW_NOMENCLATURES:
                         cell.fill = PatternFill("solid", fgColor="FFFF99")
 
-        self._workbook.save(filename=REPORTS_NAME_DICT['titanium_base']['report_name'])
+        self._workbook.save(filename=REPORTS_NAME_DICT[self.report_name]['report_name'])
 
 
 class TBReportSheet(BasicReportSheet):

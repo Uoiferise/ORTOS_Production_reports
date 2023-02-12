@@ -2,16 +2,17 @@ from openpyxl.worksheet import worksheet
 from excel_options import MONTH_DICT
 
 
-def create_production_date(input_sheet: worksheet, row: int, month_dict: dict = MONTH_DICT) -> str:
+def create_production_date(input_sheet: worksheet, row: int, main_file_name: str, month_dict: dict = MONTH_DICT) -> str:
 
     result = ''
+    start_column = (27, 21)[main_file_name == 'input_data/implants/implants_info_new.xlsx']
 
-    if input_sheet.cell(row=row, column=27).value is None:
+    if input_sheet.cell(row=row, column=start_column).value is None:
         return result
     else:
         dates = []
         flag = True
-        for col in range(29, input_sheet.max_column + 1):
+        for col in range(start_column + 2, input_sheet.max_column + 1):
             if flag:
                 if input_sheet.cell(row=row, column=col).value is None:
                     continue

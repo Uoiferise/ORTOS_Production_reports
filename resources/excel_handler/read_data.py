@@ -1,5 +1,5 @@
 import openpyxl
-from excel_options import COLUMN_INDEXES_INFO_DATA, PRODUCTION_PLAN_COLUMN, OTK_COLUMN
+from excel_options import COLUMN_INDEXES_INFO_DATA, COLUMN_INDEXES_INFO_DATA_NEW, PRODUCTION_PLAN_COLUMN, OTK_COLUMN
 from services.basic_report.basic_nomenclature import Nomenclature
 from excel_handler.production_plan_handler import create_production_date
 from functools import cache
@@ -13,9 +13,13 @@ def read_main_file(main_file: str) -> dict:
     for row in range(4, input_sheet.max_row + 1):
         nomenclature_name = input_sheet.cell(row=row, column=5).value
         nomenclature_info = dict()
-        for index, col in enumerate(COLUMN_INDEXES_INFO_DATA):
+        column_indexes = (COLUMN_INDEXES_INFO_DATA,
+                          COLUMN_INDEXES_INFO_DATA_NEW)[main_file == 'input_data/implants/implants_info_new.xlsx']
+        for index, col in enumerate(column_indexes):
             nomenclature_info[index + 1] = input_sheet.cell(row=row, column=col).value
-        nomenclature_info[PRODUCTION_PLAN_COLUMN] = create_production_date(input_sheet=input_sheet, row=row)
+        nomenclature_info[PRODUCTION_PLAN_COLUMN] = create_production_date(input_sheet=input_sheet,
+                                                                           row=row,
+                                                                           main_file_name=main_file)
         main_dict[nomenclature_name] = Nomenclature(name=nomenclature_name, id_row=row, info=nomenclature_info)
 
     print(f'{main_file} is loaded')

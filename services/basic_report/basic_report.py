@@ -7,7 +7,7 @@ from services.basic_report.basic_settings import STYLES_DICT
 class BasicReport(AbstractReport):
     """Description will be later ... maybe"""
 
-    __slots__ = ('_data', '_sheets', '_workbook')
+    __slots__ = ('_data', 'report_name', '_workbook')
 
     def validation_data(self, data: dict) -> dict:
         # Selection of non-archival items in data
@@ -17,9 +17,9 @@ class BasicReport(AbstractReport):
                 del data[key]
         return data
 
-    def __init__(self, data: dict, sheets: tuple = None):
+    def __init__(self, data: dict, report_name: str = None):
         self._data = self.validation_data(data)
-        self._sheets = sheets
+        self.report_name = report_name
 
         self._workbook = openpyxl.Workbook()
         self._workbook.remove(self._workbook.active)

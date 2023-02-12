@@ -4,6 +4,7 @@ from openpyxl.worksheet import worksheet
 
 
 def create_sheet_header(sheet: worksheet, date_start: str, date_stop: str, header_dict: dict) -> None:
+
     sheet.cell(row=1, column=5).value = f'Конец периода: {date_start} 23:59:59'
     sheet.cell(row=1, column=5).font = Font(name='Arial', bold=False, size=8)
 
@@ -40,10 +41,10 @@ def create_sheet_header(sheet: worksheet, date_start: str, date_stop: str, heade
             sheet.cell(row=6, column=c).value = 'К/Т'
 
     for row in range(4, 7):
-        for c in range(1, 23):
+        for c in range(1, sheet.max_column + 1):
             sheet.cell(row=row, column=c).style = 'header'
 
-    for c in range(1, 23):
+    for c in range(1, sheet.max_column + 1):
         if c <= 4:
             sheet.column_dimensions[get_column_letter(c)].width = 9
         elif c == 5:

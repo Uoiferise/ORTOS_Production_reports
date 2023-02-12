@@ -42,13 +42,15 @@ class ReportBlanks(BasicReport):
             current_sheet = value[0](wb=self._workbook, name=name, data=value[1])
             current_sheet.create_sheet()
 
-        self._workbook.save(filename=REPORTS_NAME_DICT['blanks']['report_name'])
+        self._workbook.save(filename=REPORTS_NAME_DICT[self.report_name]['report_name'])
 
 
 class ReportBlanksSheet(BasicReportSheet):
     __slots__ = ()
 
-    __BLANKS_LM1_PATH = 'services/reports/blanks/blanks_LM1.xlsx'
+    __COPY_SHEET_PATH_DICT = {
+        'LM1': 'services/reports/blanks/blanks_LM1.xlsx',
+    }
 
     def copy_sheet(self, wb_path: str) -> None:
         wb_from = openpyxl.load_workbook(wb_path)
@@ -85,7 +87,7 @@ class ReportBlanksSheet(BasicReportSheet):
 
     def create_sheet(self) -> None:
         self.create_sheet_header()
-        self.copy_sheet(wb_path=self.__BLANKS_LM1_PATH)
+        self.copy_sheet(wb_path=self.__COPY_SHEET_PATH_DICT[self.name])
         self.transport_date(data=self._data)
         self.fill_small_stock()
         self.create_sheet_resul()

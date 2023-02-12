@@ -4,17 +4,18 @@ from services import ReportAbutments, ReportAbutmentsFired, ReportAnalog, Report
 
 
 REPORTS_DICT = {
-    # 'abutments': ReportAbutments,
-    # 'abutments_fired': ReportAbutmentsFired,
-    # 'analog': ReportAnalog,
-    # 'blanks': ReportBlanks,
-    # 'formers': ReportFormers,
+    'abutments': ReportAbutments,
+    'abutments_fired': ReportAbutmentsFired,
+    'analog': ReportAnalog,
+    'blanks': ReportBlanks,
+    'formers': ReportFormers,
     'implants': ReportImplants,
-    # 'scan_body': ReportScanBody,
-    # 'screws': ReportScrews,
-    # 'sleeve': ReportSleeve,
-    # 'titanium_base': ReportTitaniumBase,
-    # 'transfers': ReportTransfers,
+    'implants_new': ReportImplants,
+    'scan_body': ReportScanBody,
+    'screws': ReportScrews,
+    'sleeve': ReportSleeve,
+    'titanium_base': ReportTitaniumBase,
+    'transfers': ReportTransfers,
 }
 
 
@@ -23,7 +24,7 @@ def main():
         if report_class is None:
             continue
         data = ResourceManager.get_data(report_name=report_name)
-        report_class(data=data)
+        report_class(data=data, report_name=report_name)
         print(f'{report_name} is done!')
         print()
 

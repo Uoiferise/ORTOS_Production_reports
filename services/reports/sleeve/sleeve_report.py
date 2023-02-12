@@ -15,4 +15,4 @@ class ReportSleeve(BasicReport):
             current_sheet = value[0](wb=self._workbook, name=name, data=value[1])
             current_sheet.create_sheet()
 
-        self._workbook.save(filename=REPORTS_NAME_DICT['sleeve']['report_name'])
+        self._workbook.save(filename=REPORTS_NAME_DICT[self.report_name]['report_name'])

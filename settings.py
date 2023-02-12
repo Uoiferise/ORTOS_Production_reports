@@ -41,6 +41,11 @@ REPORTS_NAME_DICT = {
         'unshipped_file': 'input_data/implants/implants_unsh.xlsx',
         'report_name': f'{OUTPUT_PATH}/Импланты_{DATE_START_RN}-{DATE_STOP_RN}.xlsx'
     },
+    'implants_new': {
+        'main_file': 'input_data/implants/implants_info_new.xlsx',
+        'unshipped_file': 'input_data/implants/implants_unsh.xlsx',
+        'report_name': f'{OUTPUT_PATH}/Импланты_{DATE_START_RN}-{DATE_STOP_RN}_new.xlsx'
+    },
     'scan_body': {
         'main_file': 'input_data/scan_body/scan_body_info.xlsx',
         'unshipped_file': 'input_data/scan_body/scan_body_unsh.xlsx',
