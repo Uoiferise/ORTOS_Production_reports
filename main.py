@@ -20,13 +20,14 @@ REPORTS_DICT = {
 
 
 def main():
+    count = 0
     for report_name, report_class in REPORTS_DICT.items():
+        count += 1
         if report_class is None:
             continue
         data = ResourceManager.get_data(report_name=report_name)
         report_class(data=data, report_name=report_name)
-        print(f'{report_name} is done!')
-        print()
+        print(f'{count} | {report_name} is done!', sep='\n')
 
 
 if __name__ == '__main__':

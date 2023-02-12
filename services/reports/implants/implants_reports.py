@@ -39,7 +39,6 @@ def read_otk_file(otk_file: str) -> dict:
         otk_value = input_sheet.cell(row=r, column=2).value
         otk_dict[nomenclature_name] = otk_value
 
-    print(f'{otk_file} is loaded')
     return otk_dict
 
 

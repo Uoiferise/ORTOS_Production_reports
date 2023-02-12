@@ -1,8 +1,7 @@
 from openpyxl.styles import Alignment, PatternFill
-from openpyxl.worksheet import worksheet
 
 
-def fill_small_stock(sheet: worksheet, start_row: int) -> None:
+def fill_small_stock(sheet, start_row: int) -> None:
     for row in range(start_row, sheet.max_row + 1):
         if sheet.cell(row=row, column=9).value is None:
             continue

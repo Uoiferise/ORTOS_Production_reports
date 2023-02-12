@@ -6,6 +6,7 @@ from basic_functions.create_sheet_header import create_sheet_header
 from basic_functions.fill_small_stock import fill_small_stock
 from basic_functions.create_sheet_result import create_sheet_result
 from basic_functions.separation_nomenclatures import separation_nomenclatures
+from basic_functions.match_nomenclatures import match_nomenclatures
 from openpyxl.styles import Alignment
 
 
@@ -43,9 +44,10 @@ class BasicReportSheet(AbstractReportSheet):
                             start_row=self._start_row,
                             end_row=self._sheet.max_row)
 
-    def separation_nomenclatures(self, start_row: int = None) -> None:
+    def separation_nomenclatures(self, start_row: int = None, exception: bool = None) -> None:
         separation_nomenclatures(sheet=self._sheet,
-                                 start_row=(start_row, self._start_row)[start_row is None])
+                                 start_row=(start_row, self._start_row)[start_row is None],
+                                 exception=(exception, False)[exception is None])
 
     @staticmethod
     def cell_style(cell) -> None:
@@ -71,6 +73,9 @@ class BasicReportSheet(AbstractReportSheet):
                 cell.value = info
                 self.cell_style(cell)
             row += 1
+
+    def match_nomenclatures(self, match_file: str) -> None:
+        match_nomenclatures(match_file=match_file, sheet=self._sheet)
 
     def create_sheet(self) -> None:
         self.create_sheet_header()

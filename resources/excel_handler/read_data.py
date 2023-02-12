@@ -22,7 +22,6 @@ def read_main_file(main_file: str) -> dict:
                                                                            main_file_name=main_file)
         main_dict[nomenclature_name] = Nomenclature(name=nomenclature_name, id_row=row, info=nomenclature_info)
 
-    print(f'{main_file} is loaded')
     return main_dict
 
 
@@ -40,7 +39,6 @@ def read_unshipped_file(unshipped_file: str) -> dict:
         else:
             print(f'{unshipped_file} have error: max_column != 8:')
 
-    print(f'{unshipped_file} is loaded')
     return unshipped_dict
 
 
@@ -55,7 +53,6 @@ def read_otk_file(otk_file: str) -> dict:
         otk_value = input_sheet.cell(row=r, column=2).value
         otk_dict[nomenclature_name] = otk_value
 
-    print(f'{otk_file} is loaded')
     return otk_dict
 
 

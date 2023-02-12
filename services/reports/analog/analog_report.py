@@ -18,7 +18,7 @@ class ReportAnalog(BasicReport):
 
     def create_report(self):
         sheets_dict = {
-            'Аналоги': (BasicReportSheet, self._data),
+            'Аналоги': (ReportAnalogSheet, self._data),
         }
 
         for name, value in sheets_dict.items():
@@ -26,3 +26,18 @@ class ReportAnalog(BasicReport):
             current_sheet.create_sheet()
 
         self._workbook.save(filename=REPORTS_NAME_DICT[self.report_name]['report_name'])
+
+
+class ReportAnalogSheet(BasicReportSheet):
+    __slots__ = ()
+
+    __MATCH_FILE_PATH = 'services/reports/analog/analog_matching.xlsx'
+
+    def create_sheet(self) -> None:
+        self.create_sheet_header()
+        self.transport_date(data=self._data)
+        self.fill_small_stock()
+        self.separation_nomenclatures(exception=True)
+        self.create_sheet_resul()
+        self.match_nomenclatures(match_file=self.__MATCH_FILE_PATH)
+        self.create_sheet_resul()

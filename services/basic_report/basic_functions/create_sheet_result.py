@@ -1,7 +1,4 @@
-from openpyxl.worksheet import worksheet
-
-
-def create_sheet_result(sheet: worksheet, start_row: int, end_row: int) -> None:
+def create_sheet_result(sheet, start_row: int, end_row: int) -> None:
     rows_dict = {
         9: 'I',
         10: 'J',

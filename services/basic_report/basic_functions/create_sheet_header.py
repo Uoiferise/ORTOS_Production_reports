@@ -1,9 +1,8 @@
 from openpyxl.styles import Font
 from openpyxl.utils import get_column_letter
-from openpyxl.worksheet import worksheet
 
 
-def create_sheet_header(sheet: worksheet, date_start: str, date_stop: str, header_dict: dict) -> None:
+def create_sheet_header(sheet, date_start: str, date_stop: str, header_dict: dict) -> None:
 
     sheet.cell(row=1, column=5).value = f'Конец периода: {date_start} 23:59:59'
     sheet.cell(row=1, column=5).font = Font(name='Arial', bold=False, size=8)

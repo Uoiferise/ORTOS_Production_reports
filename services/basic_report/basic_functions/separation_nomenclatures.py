@@ -1,8 +1,7 @@
-from openpyxl.worksheet import worksheet
 from openpyxl.styles import Side, PatternFill, Border
 
 
-def separation_nomenclatures(sheet: worksheet, start_row: int, exception=False) -> None:
+def separation_nomenclatures(sheet, start_row: int, exception: bool = False) -> None:
     # Будем разделять номенклатуры по их линейке, а также объединять пары с одинаковыми размерами в жирные границы
     thin = Side(border_style="thin", color="000000")
     medium = Side(border_style="medium", color="000000")
