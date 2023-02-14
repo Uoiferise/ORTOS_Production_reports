@@ -1,6 +1,6 @@
 # a report sheet header information
-DATE_START = '01.01.2023'
-DATE_STOP = '01.02.2023'
+DATE_START = '14.01.2023'
+DATE_STOP = '15.02.2023'
 
 # a report name information
 DATE_START_RN = DATE_START[0:5]
